@@ -135,7 +135,7 @@ class DbService {
                 });
             });
             if(response.affectRows === 0) return { success: false, message: "add user failed"}
-            else return { success: true, message: "add user success", id: info_id };
+            else return { success: true, message: "add user success", id: info_id, usertype: usertype };
         }catch(error){
             console.log(error.message);
             return { success: false, message: "error occur" };
