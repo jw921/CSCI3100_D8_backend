@@ -98,4 +98,12 @@ app.post("/selectCourse", (request, response) => {
     const result = db.selectCourse(coursecode, info_id);
     result.then((data) => response.json(data)).catch((err) => console.log(err));
 });
+
+
+app.get("/getAllUser", (request, response) => {
+    const { info_id, username, password, usertype, department, email } = request.body;
+    const db = DbService.getDbServiceInstance();
+    const result = db.getAllUser(info_id, username, password, usertype, department, email);
+    result.then((data) => response.json(data)).catch((err) => console.log(err));
+}) 
 app.listen(process.env.PORT, () => console.log("app os running"));

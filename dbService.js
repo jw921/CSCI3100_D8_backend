@@ -220,6 +220,23 @@ class DbService {
         }
     }
 
+    //Get All user info
+    async getAllUser(info_id, username, password, usertype, department, email){
+        const response = await new Promise((resolve, reject) => {
+        const query = "SELECT * FROM users;"
+        connection.query(query, (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result);
+                });
+            });
+            return response;
+        } catch (error) {
+            console.log(error.message);
+            return { success: false, message: "error occur" };
+        }
+        
+    
+
 
 
 }
