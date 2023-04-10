@@ -26,7 +26,7 @@ app.get("/getUsers", (request, response) => {
 // });
 
 app.post('/login', (request, response) => {
-    const info = ({info_id, password} = request.body);
+    const info = ({ info_id, password } = request.body);
     console.log(info);
     const db = DbService.getDbServiceInstance();
     const result = db.loginUser(info);
@@ -35,7 +35,7 @@ app.post('/login', (request, response) => {
 
 //sample api
 app.get('/getUserInfo', (request, response) => {
-    const {info_id} = request.query;
+    const { info_id } = request.query;
     console.log(info_id);
     const db = DbService.getDbServiceInstance();
     const result = db.getUserInfo(info_id);
@@ -57,7 +57,7 @@ app.get("/getCourseByCoursecode", (request, response) => {
 
 
 app.get("/getCourseByFilter", (request, response) => {
-    const {filter} = request.query;
+    const { filter } = request.query;
     const db = DbService.getDbServiceInstance();
     const result = db.getCourseByFilter(filter);
     result.then((data) => response.json(data)).catch((err) => console.log(err));
@@ -92,5 +92,10 @@ app.post("/editProfile", (request, response) => {
     result.then((data) => response.json(data)).catch((err) => console.log(err));
 });
 
-
+app.post("/selectCourse", (request, response) => {
+    const { coursecode, info_id } = request.body;
+    const db = DbService.getDbServiceInstance();
+    const result = db.selectCourse(coursecode, info_id);
+    result.then((data) => response.json(data)).catch((err) => console.log(err));
+});
 app.listen(process.env.PORT, () => console.log("app os running"));
