@@ -12,9 +12,7 @@ const connection = mysql.createConnection({
 });
 
 connection.connect((err) => {
-    if (err) {
-        console.log(err.message);
-    }
+    if (err) console.log(err.message);
     console.log("db " + connection.state);
 });
 
@@ -66,19 +64,6 @@ class DbService {
                     resolve(result);
                 });
             });
-            // allCourses = JSON.parse(JSON.stringify(allCourses));
-            // for (let i = 0; i < allCourses.length; i++) {
-            //     let course = await new Promise((resolve, reject) => {
-            //         const query = "SELECT * FROM classevent WHERE CourseCode = ?;";
-            //         connection.query(query, [allCourses[i].CourseCode], (err, result) => {
-            //             if (err) reject(new Error(err.message));
-            //             resolve(result);
-            //         });
-            //     });
-            //     course = JSON.parse(JSON.stringify(course));
-            //     course = course[0];
-            //     allCourses[i] = { ...allCourses[i], ...course };
-            // }
             return response;
         } catch (error) {
             console.log(error.message);
@@ -155,7 +140,6 @@ class DbService {
         }
     }
 
-
     async resetPassword(password, info_id, username) {
         try {
             const response = await new Promise((resolve, reject) => {
@@ -202,16 +186,12 @@ class DbService {
             // add selected course to courses
             // select students from courses where coursecode=coursecode
             // add info_id to students
-            console.log(response);
             return { success: true, message: "success" };
         } catch (error) {
             console.log(error.message);
             return { success: false, message: "error occur" };
         }
     }
-
-
-
 
     //sample code for retreveing data from students table
     async getUserInfo(info_id) {
@@ -240,44 +220,44 @@ class DbService {
                 if (err) reject(new Error(err.message));
                 resolve(result);
             });
-            });
-            return response;
-        } catch (error) {
-            console.log(error.message);
-            return { success: false, message: "error occur" };
-        }
-    
+        });
+        return response;
+    } catch(error) {
+        console.log(error.message);
+        return { success: false, message: "error occur" };
+    }
+
     // Delete selected user    
-    async deleteUser (info_id){
+    async deleteUser(info_id) {
         console.log("deleting user " + info_id);
         const response = await new Promise((resolve, reject) => {
             const query = "DELETE FROM users WHERE info_id = ?;"
             connection.query(query, [info_id], (err, result) => {
-                    if (err) reject(new Error(err.message));
-                    resolve(result);
-                });
+                if (err) reject(new Error(err.message));
+                resolve(result);
             });
-                return response;
-            } catch (error) {
-                console.log(error.message);
-                return { success: false, message: "error occur" };
-            }
+        });
+        return response;
+    } catch(error) {
+        console.log(error.message);
+        return { success: false, message: "error occur" };
+    }
 
     // Delete selected user    
-    async deleteUser (coursecode){
+    async deleteUser(coursecode) {
         console.log("deleting user " + coursecode);
         const response = await new Promise((resolve, reject) => {
             const query = "DELETE FROM courses WHERE coursecode = ?;"
             connection.query(query, [coursecode], (err, result) => {
-                    if (err) reject(new Error(err.message));
-                    resolve(result);
-                });
+                if (err) reject(new Error(err.message));
+                resolve(result);
             });
-                return response;
-            } catch (error) {
-                console.log(error.message);
-                return { success: false, message: "error occur" };
-            }
+        });
+        return response;
+    } catch(error) {
+        console.log(error.message);
+        return { success: false, message: "error occur" };
+    }
 }
 
 module.exports = DbService;
