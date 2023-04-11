@@ -59,14 +59,27 @@ class DbService {
 
     async getAllCourse() {
         try {
-            const response = await new Promise((resolve, reject) => {
+            let allCourses = await new Promise((resolve, reject) => {
                 const query = "SELECT * FROM course;";
                 connection.query(query, (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result);
                 });
             });
-            return response;
+            allCourses = JSON.parse(JSON.stringify(allCourses));
+            for (let i = 0; i < allCourses.length; i++) {
+                let course = await new Promise((resolve, reject) => {
+                    const query = "SELECT * FROM classevent WHERE CourseCode = ?;";
+                    connection.query(query, [allCourses[i].CourseCode], (err, result) => {
+                        if (err) reject(new Error(err.message));
+                        resolve(result);
+                    });
+                });
+                course = JSON.parse(JSON.stringify(course));
+                course = course[0];
+                allCourses[i] = { ...allCourses[i], ...JSON.parse(JSON.stringify(course)) };
+            }
+            return allCourses;
         } catch (error) {
             console.log(error.message);
             return { success: false, message: "error occur" };
@@ -202,7 +215,6 @@ class DbService {
 
     //sample code for retreveing data from students table
     async getUserInfo(info_id) {
-        console.log(info_id);
         try {
             const response = await new Promise((resolve, reject) => {
                 const query = "SELECT * FROM users WHERE info_id = ?;";
