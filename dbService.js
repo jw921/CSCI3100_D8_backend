@@ -77,7 +77,7 @@ class DbService {
                 });
                 course = JSON.parse(JSON.stringify(course));
                 course = course[0];
-                allCourses[i] = { ...allCourses[i], ...JSON.parse(JSON.stringify(course)) };
+                allCourses[i] = { ...allCourses[i], ...course };
             }
             return allCourses;
         } catch (error) {
