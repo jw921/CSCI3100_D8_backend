@@ -109,8 +109,9 @@ app.get("/getAllUser", (request, response) => {
 
 app.delete("/deleteUser", (request, response) => {
     const { info_id } = request.body;
+    // console.log("deleting user: " + info_id);
     const db = DbService.getDbServiceInstance();
-    const result = db.getAllUser(info_id, username, password, usertype, department, email);
+    const result = db.deleteUser(info_id);
     result.then((data) => response.json(data)).catch((err) => console.log(err));
 
 })
