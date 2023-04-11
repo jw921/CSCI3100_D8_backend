@@ -229,7 +229,6 @@ class DbService {
 
     // Delete selected user    
     async deleteUser(info_id) {
-        console.log("deleting user " + info_id);
         const response = await new Promise((resolve, reject) => {
             const query = "DELETE FROM users WHERE info_id = ?;"
             connection.query(query, [info_id], (err, result) => {
@@ -243,21 +242,20 @@ class DbService {
         return { success: false, message: "error occur" };
     }
 
-    // Delete selected user    
-    async deleteUser(coursecode) {
-        console.log("deleting user " + coursecode);
+    // Delete selected course    
+    async deleteCourse (coursecode){
         const response = await new Promise((resolve, reject) => {
             const query = "DELETE FROM courses WHERE coursecode = ?;"
             connection.query(query, [coursecode], (err, result) => {
-                if (err) reject(new Error(err.message));
-                resolve(result);
+                    if (err) reject(new Error(err.message));
+                    resolve(result);
+                });
             });
-        });
-        return response;
-    } catch(error) {
-        console.log(error.message);
-        return { success: false, message: "error occur" };
-    }
+                return response;
+            } catch (error) {
+                console.log(error.message);
+                return { success: false, message: "error occur" };
+            }
 }
 
 module.exports = DbService;

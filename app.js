@@ -108,7 +108,7 @@ app.delete("/deleteUser", (request, response) => {
 app.delete("/deleteCourse", (request, response) => {
     const { coursecode } = request.body;
     const db = DbService.getDbServiceInstance();
-    const result = db.deleteUser(coursecode);
+    const result = db.deleteCourse(coursecode);
     result.then((data) => response.json(data)).catch((err) => console.log(err));
 
 })
