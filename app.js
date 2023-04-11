@@ -18,13 +18,6 @@ app.get("/getUsers", (request, response) => {
     result.then((data) => response.json(data)).catch((err) => console.log(err));
 });
 
-// app.get("/getUserByID", (request, response) => {
-//     const { info_id } = request.query;
-//     const db = DbService.getDbServiceInstance();
-//     const result = db.getUserByID(info_id);
-//     result.then((data) => response.json(data)).catch((err) => console.log(err));
-// });
-
 app.post('/login', (request, response) => {
     const info = ({ info_id, password } = request.body);
     console.log(info);
@@ -36,7 +29,6 @@ app.post('/login', (request, response) => {
 //sample api
 app.get('/getUserInfo', (request, response) => {
     const { info_id } = request.query;
-    console.log(info_id);
     const db = DbService.getDbServiceInstance();
     const result = db.getUserInfo(info_id);
     result.then((data) => response.json(data)).catch((err) => console.log(err));
@@ -72,7 +64,6 @@ app.post("/addCourse", (request, response) => {
 
 app.post("/addUser", (request, response) => {
     const { info_id, username, password, usertype, department, email } = request.body;
-    console.log(request.body);
     const db = DbService.getDbServiceInstance();
     const result = db.addUser(info_id, username, password, usertype, department, email);
     result.then((data) => response.json(data)).catch((err) => console.log(err));
@@ -109,7 +100,6 @@ app.get("/getAllUser", (request, response) => {
 
 app.delete("/deleteUser", (request, response) => {
     const { info_id } = request.body;
-    // console.log("deleting user: " + info_id);
     const db = DbService.getDbServiceInstance();
     const result = db.deleteUser(info_id);
     result.then((data) => response.json(data)).catch((err) => console.log(err));
@@ -117,10 +107,10 @@ app.delete("/deleteUser", (request, response) => {
 
 app.delete("/deleteCourse", (request, response) => {
     const { coursecode } = request.body;
-    // console.log("deleting user: " + info_id);
     const db = DbService.getDbServiceInstance();
     const result = db.deleteUser(coursecode);
     result.then((data) => response.json(data)).catch((err) => console.log(err));
 
 })
+
 app.listen(process.env.PORT, () => console.log("app os running"));
