@@ -105,5 +105,13 @@ app.get("/getAllUser", (request, response) => {
     const db = DbService.getDbServiceInstance();
     const result = db.getAllUser(info_id, username, password, usertype, department, email);
     result.then((data) => response.json(data)).catch((err) => console.log(err));
-}) 
+})
+
+app.delete("/deleteUser", (request, response) => {
+    const { info_id } = request.body;
+    const db = DbService.getDbServiceInstance();
+    const result = db.getAllUser(info_id, username, password, usertype, department, email);
+    result.then((data) => response.json(data)).catch((err) => console.log(err));
+
+})
 app.listen(process.env.PORT, () => console.log("app os running"));
