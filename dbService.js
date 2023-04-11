@@ -60,7 +60,7 @@ class DbService {
     async getAllCourse() {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM courses;";
+                const query = "SELECT * FROM course;";
                 connection.query(query, (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result);
@@ -221,21 +221,21 @@ class DbService {
     }
 
     //Get All user info
-    async getAllUser(info_id, username, password, usertype, department, email){
+    async getAllUser(info_id, username, password, usertype, department, email) {
         const response = await new Promise((resolve, reject) => {
-        const query = "SELECT * FROM users;"
-        connection.query(query, (err, result) => {
-                    if (err) reject(new Error(err.message));
-                    resolve(result);
-                });
+            const query = "SELECT * FROM users;"
+            connection.query(query, (err, result) => {
+                if (err) reject(new Error(err.message));
+                resolve(result);
             });
-            return response;
-        } catch (error) {
-            console.log(error.message);
-            return { success: false, message: "error occur" };
-        }
-        
-    
+        });
+        return response;
+    } catch(error) {
+        console.log(error.message);
+        return { success: false, message: "error occur" };
+    }
+
+
 
 
 
