@@ -262,6 +262,22 @@ class DbService {
                 console.log(error.message);
                 return { success: false, message: "error occur" };
             }
+
+    // Delete selected user    
+    async deleteUser (coursecode){
+        console.log("deleting user " + coursecode);
+        const response = await new Promise((resolve, reject) => {
+            const query = "DELETE FROM courses WHERE coursecode = ?;"
+            connection.query(query, [coursecode], (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result);
+                });
+            });
+                return response;
+            } catch (error) {
+                console.log(error.message);
+                return { success: false, message: "error occur" };
+            }
 }
 
 module.exports = DbService;

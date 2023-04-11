@@ -113,6 +113,14 @@ app.delete("/deleteUser", (request, response) => {
     const db = DbService.getDbServiceInstance();
     const result = db.deleteUser(info_id);
     result.then((data) => response.json(data)).catch((err) => console.log(err));
+})
+
+app.delete("/deleteCourse", (request, response) => {
+    const { coursecode } = request.body;
+    // console.log("deleting user: " + info_id);
+    const db = DbService.getDbServiceInstance();
+    const result = db.deleteUser(coursecode);
+    result.then((data) => response.json(data)).catch((err) => console.log(err));
 
 })
 app.listen(process.env.PORT, () => console.log("app os running"));
