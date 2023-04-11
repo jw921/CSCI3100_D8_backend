@@ -232,7 +232,7 @@ class DbService {
         }
     }
 
-    //Get All user info
+    //Get all user info
     async getAllUser(info_id, username, password, usertype, department, email) {
         const response = await new Promise((resolve, reject) => {
             const query = "SELECT * FROM users;"
@@ -247,24 +247,21 @@ class DbService {
             return { success: false, message: "error occur" };
         }
     
-        
-    async deleteUser (info_id, username, password, usertype, department, email){
+    // Delete selected user    
+    async deleteUser (info_id){
+        console.log("deleting user " + info_id);
         const response = await new Promise((resolve, reject) => {
             const query = "DELETE FROM users WHERE info_id = ?;"
-            connection.query(query, (err, result) => {
-                        if (err) reject(new Error(err.message));
-                        resolve(result);
-                    });
+            connection.query(query, [info_id], (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result);
                 });
+            });
                 return response;
             } catch (error) {
                 console.log(error.message);
                 return { success: false, message: "error occur" };
             }
-    
-
-
-
 }
 
 module.exports = DbService;
