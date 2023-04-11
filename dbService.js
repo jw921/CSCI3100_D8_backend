@@ -59,27 +59,27 @@ class DbService {
 
     async getAllCourse() {
         try {
-            let allCourses = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM course;";
+            let response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM courses;";
                 connection.query(query, (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result);
                 });
             });
-            allCourses = JSON.parse(JSON.stringify(allCourses));
-            for (let i = 0; i < allCourses.length; i++) {
-                let course = await new Promise((resolve, reject) => {
-                    const query = "SELECT * FROM classevent WHERE CourseCode = ?;";
-                    connection.query(query, [allCourses[i].CourseCode], (err, result) => {
-                        if (err) reject(new Error(err.message));
-                        resolve(result);
-                    });
-                });
-                course = JSON.parse(JSON.stringify(course));
-                course = course[0];
-                allCourses[i] = { ...allCourses[i], ...course };
-            }
-            return allCourses;
+            // allCourses = JSON.parse(JSON.stringify(allCourses));
+            // for (let i = 0; i < allCourses.length; i++) {
+            //     let course = await new Promise((resolve, reject) => {
+            //         const query = "SELECT * FROM classevent WHERE CourseCode = ?;";
+            //         connection.query(query, [allCourses[i].CourseCode], (err, result) => {
+            //             if (err) reject(new Error(err.message));
+            //             resolve(result);
+            //         });
+            //     });
+            //     course = JSON.parse(JSON.stringify(course));
+            //     course = course[0];
+            //     allCourses[i] = { ...allCourses[i], ...course };
+            // }
+            return response;
         } catch (error) {
             console.log(error.message);
             return { success: false, message: "error occur" };
