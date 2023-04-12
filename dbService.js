@@ -71,6 +71,22 @@ class DbService {
         }
     }
 
+    async getEnrolledCourses(info_id) {
+        try {
+            let response = await new Promise((resolve, reject) => {
+                const query = "SELECT a.* FROM courses a INNER JOIN record b ON a.coursecode = b.coursecode WHERE b.info_id = ? AND b.status = 'enrolled';";
+                connection.query(query, [info_id], (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result);
+                });
+            });
+            return response;
+        } catch (error) {
+            console.log(error.message);
+            return { success: false, message: "error occur" };
+        }
+    }
+
     async getCourseByCourseID(coursecode) {
         try {
             const response = await new Promise((resolve, reject) => {

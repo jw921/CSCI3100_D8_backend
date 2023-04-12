@@ -40,6 +40,13 @@ app.get("/getAllCourse", (request, response) => {
     result.then((data) => response.json(data)).catch((err) => console.log(err));
 });
 
+app.get("/getEnrolledCourses", (request, response) => {
+    const { info_id } = request.query;
+    const db = DbService.getDbServiceInstance();
+    const result = db.getEnrolledCourses(info_id);
+    result.then((data) => response.json(data)).catch((err) => console.log(err));
+});
+
 app.get("/getCourseByCoursecode", (request, response) => {
     const { coursecode } = request.query;
     const db = DbService.getDbServiceInstance();
