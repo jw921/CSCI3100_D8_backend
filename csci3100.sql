@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2023 at 09:41 AM
+-- Generation Time: Apr 12, 2023 at 11:14 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.4.21
 
@@ -43,7 +43,6 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`coursecode`, `coursename`, `time_period`, `place`, `department`, `instructor`, `capacity`, `assessment_method`) VALUES
-('ART102', 'Introduction to Art', 'M 10:00-12:00', 'Art Building Room 101', 'Art Department', 'John Smith', 30, 'project'),
 ('BIOL101', 'Biology I', 'F 16:00-19:00', 'Room 108', 'Biology', 'Emily Wang', 30, 'project'),
 ('CHEM101', 'Chemistry I', 'T 13:00-16:00', 'Room 105', 'Chemistry', 'Michael Brown', 25, 'project'),
 ('CS101', 'Introduction to Computer Science', 'F 09:00-12:00', 'Room 101', 'Computer Science', 'John Smith', 50, 'exam'),
@@ -67,6 +66,15 @@ CREATE TABLE `record` (
   `createdtime` timestamp NOT NULL DEFAULT current_timestamp(),
   `status` set('pending','waitlisted','rejected','dropped','enrolled') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `record`
+--
+
+INSERT INTO `record` (`operationid`, `info_id`, `coursecode`, `createdtime`, `status`) VALUES
+(0, 554, 'BIOL101', '2023-04-12 08:43:38', 'dropped'),
+(1, 554, 'CHEM101', '2023-04-12 09:13:58', 'enrolled'),
+(2, 554, 'CS101', '2023-04-12 09:13:58', 'enrolled');
 
 -- --------------------------------------------------------
 
