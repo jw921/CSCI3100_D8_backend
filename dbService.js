@@ -189,11 +189,11 @@ class DbService {
         }
     }
 
-    async editProfile(info_id, username, password, usertype, department) {
+    async editProfile(info_id, email) {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "UPDATE users SET username = ?, password = ?, usertype = ?, department = ? WHERE info_id = ?;";
-                connection.query(query, [username, password, usertype, department, info_id], (err, result) => {
+                const query = "UPDATE users SET email = ? WHERE info_id = ?;";
+                connection.query(query, [info_id, email], (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result);
                 });
