@@ -290,6 +290,22 @@ class DbService {
             return { success: false, message: "error occur" };
         }
     }
+
+    async getCourses(userType, searchItem) {
+        const response = await new Promise((resolve, reject) => {
+            const query = "SELECT * FROM courses WHERE " + userType + " = '" + searchItem + "';";
+            console.log(query);
+            connection.query(query, (err, result) => {
+                if (err) reject(new Error(err.message));
+                resolve(result);
+            });
+        });
+        console.log(response);
+        return response;
+    } catch(error) {
+        console.log(error.message);
+        return { success: false, message: "error occur" };
+    }
 }
 
 module.exports = DbService;

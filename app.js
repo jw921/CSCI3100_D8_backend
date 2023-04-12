@@ -126,6 +126,14 @@ app.delete("/deleteCourse", (request, response) => {
     const result = db.deleteCourse(coursecode);
     result.then((data) => response.json(data)).catch((err) => console.log(err));
 
-})
+});
+
+app.get("/getCourses", (request, response) => {
+    const { userType, searchItem } = request.query;
+    const db = DbService.getDbServiceInstance();
+    const result = db.getCourses(userType, searchItem);
+    result.then((data) => response.json(data)).catch((err) => console.log(err));
+
+});
 
 app.listen(process.env.PORT, () => console.log("app os running"));
