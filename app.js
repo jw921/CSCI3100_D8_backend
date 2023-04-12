@@ -91,10 +91,10 @@ app.post("/resetPassword", (request, response) => {
     result.then((data) => response.json(data)).catch((err) => console.log(err));
 });
 
-app.post("/editProfile", (request, response) => {
-    const { info_id, username, password, usertype, department } = request.body;
+app.put("/editProfile", (request, response) => {
+    const { info_id, email} = request.body;
     const db = DbService.getDbServiceInstance();
-    const result = db.editProfile(info_id, username, password, usertype, department);
+    const result = db.editProfile(info_id, email);
     result.then((data) => response.json(data)).catch((err) => console.log(err));
 });
 
