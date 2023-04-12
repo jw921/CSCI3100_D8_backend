@@ -96,6 +96,13 @@ class DbService {
                     resolve(result);
                 });
             });
+            response = await new Promise((resolve, reject) => {
+                const query = "UPDATE courses SET capacity = capacity + 1 WHERE coursecode = ?";
+                connection.query(query, [coursecode], (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result);
+                });
+            });
             return response;
         } catch (error) {
             console.log(error.message);
@@ -285,7 +292,6 @@ class DbService {
                     resolve(result);
                 });
             });
-            console.log(response);
             return response;
         } catch (error) {
             console.log(error.message);
@@ -295,15 +301,30 @@ class DbService {
 
     async selectCourse(info_id, coursecode) {
         try {
-            console.log(coursecode);
-            const response = await new Promise((resolve, reject) => {
+            let response = await new Promise((resolve, reject) => {
+                const query = "SELECT capacity FROM courses WHERE coursecode = ?;";
+                connection.query(query, [coursecode], (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result);
+                });
+            });
+            response = JSON.parse(JSON.stringify(response));
+            if (response[0].capacity == 0) throw "Select fail";
+            response = await new Promise((resolve, reject) => {
                 const query = "INSERT INTO record (info_id, coursecode, status) VALUES (?, ?, 'enrolled');";
                 connection.query(query, [info_id, coursecode], (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result);
                 });
             });
-            return response;
+            response = await new Promise((resolve, reject) => {
+                const query = "UPDATE courses SET capacity = capacity - 1 WHERE coursecode = ?;";
+                connection.query(query, [coursecode], (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result);
+                });
+            });
+            return { success: true };
         } catch (error) {
             console.log(error.message);
             return { success: false, message: "error occur" };

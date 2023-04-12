@@ -132,7 +132,6 @@ app.post("/selectCourse", (request, response) => {
     const db = DbService.getDbServiceInstance();
     const result = db.selectCourse(info_id, coursecode);
     result.then((data) => response.json(data)).catch((err) => console.log(err));
-
 });
 
 app.listen(process.env.PORT, () => console.log("app os running"));
