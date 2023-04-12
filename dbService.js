@@ -293,7 +293,7 @@ class DbService {
 
     async getCourses(userType, searchItem) {
         const response = await new Promise((resolve, reject) => {
-            const query = "SELECT * FROM courses WHERE " + userType + " LIKE '" + searchItem + "';";
+            const query = "SELECT * FROM courses WHERE " + userType + " LIKE '%" + searchItem + "%';";
             console.log(query);
             connection.query(query, (err, result) => {
                 if (err) reject(new Error(err.message));
