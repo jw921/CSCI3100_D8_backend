@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2023 at 04:11 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Generation Time: Apr 12, 2023 at 09:41 AM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 7.4.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,14 +36,13 @@ CREATE TABLE `courses` (
   `instructor` varchar(32) DEFAULT NULL,
   `capacity` int(11) DEFAULT NULL,
   `assessment_method` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `courses`
 --
 
 INSERT INTO `courses` (`coursecode`, `coursename`, `time_period`, `place`, `department`, `instructor`, `capacity`, `assessment_method`) VALUES
-('ART101', 'Art Appreciation', 'S 17:00-20:00', 'Room 109', 'Art', 'Kevin Chen', 20, 'project'),
 ('ART102', 'Introduction to Art', 'M 10:00-12:00', 'Art Building Room 101', 'Art Department', 'John Smith', 30, 'project'),
 ('BIOL101', 'Biology I', 'F 16:00-19:00', 'Room 108', 'Biology', 'Emily Wang', 30, 'project'),
 ('CHEM101', 'Chemistry I', 'T 13:00-16:00', 'Room 105', 'Chemistry', 'Michael Brown', 25, 'project'),
@@ -58,6 +57,20 @@ INSERT INTO `courses` (`coursecode`, `coursename`, `time_period`, `place`, `depa
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `record`
+--
+
+CREATE TABLE `record` (
+  `operationid` int(6) NOT NULL COMMENT '000000-999999',
+  `info_id` int(12) NOT NULL,
+  `coursecode` varchar(32) NOT NULL,
+  `createdtime` timestamp NOT NULL DEFAULT current_timestamp(),
+  `status` set('pending','waitlisted','rejected','dropped','enrolled') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -68,7 +81,7 @@ CREATE TABLE `users` (
   `info_id` int(12) NOT NULL,
   `department` varchar(32) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
@@ -93,6 +106,12 @@ INSERT INTO `users` (`username`, `password`, `usertype`, `info_id`, `department`
 --
 ALTER TABLE `courses`
   ADD PRIMARY KEY (`coursecode`);
+
+--
+-- Indexes for table `record`
+--
+ALTER TABLE `record`
+  ADD PRIMARY KEY (`operationid`);
 
 --
 -- Indexes for table `users`
