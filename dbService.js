@@ -87,6 +87,22 @@ class DbService {
         }
     }
 
+    async dropCourse(coursecode, info_id) {
+        try {
+            let response = await new Promise((resolve, reject) => {
+                const query = "UPDATE record SET status = 'dropped' WHERE coursecode = ? AND info_id = ?";
+                connection.query(query, [coursecode, info_id], (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result);
+                });
+            });
+            return response;
+        } catch (error) {
+            console.log(error.message);
+            return { success: false, message: "error occur" };
+        }
+    }
+
     async getCourseByCourseID(coursecode) {
         try {
             const response = await new Promise((resolve, reject) => {
