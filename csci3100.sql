@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2023 at 11:14 AM
+-- Generation Time: Apr 12, 2023 at 03:31 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.4.21
 
@@ -60,21 +60,11 @@ INSERT INTO `courses` (`coursecode`, `coursename`, `time_period`, `place`, `depa
 --
 
 CREATE TABLE `record` (
-  `operationid` int(6) NOT NULL COMMENT '000000-999999',
   `info_id` int(12) NOT NULL,
   `coursecode` varchar(32) NOT NULL,
   `createdtime` timestamp NOT NULL DEFAULT current_timestamp(),
   `status` set('pending','waitlisted','rejected','dropped','enrolled') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `record`
---
-
-INSERT INTO `record` (`operationid`, `info_id`, `coursecode`, `createdtime`, `status`) VALUES
-(0, 554, 'BIOL101', '2023-04-12 08:43:38', 'dropped'),
-(1, 554, 'CHEM101', '2023-04-12 09:13:58', 'enrolled'),
-(2, 554, 'CS101', '2023-04-12 09:13:58', 'enrolled');
 
 -- --------------------------------------------------------
 
@@ -119,7 +109,7 @@ ALTER TABLE `courses`
 -- Indexes for table `record`
 --
 ALTER TABLE `record`
-  ADD PRIMARY KEY (`operationid`);
+  ADD PRIMARY KEY (`info_id`,`coursecode`);
 
 --
 -- Indexes for table `users`

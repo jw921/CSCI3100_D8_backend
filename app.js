@@ -48,8 +48,7 @@ app.get("/getEnrolledCourses", (request, response) => {
 });
 
 app.delete("/dropCourse", (request, response) => {
-    const { info_id } = request.query;
-    const { coursecode } = request.body;
+    const { info_id, coursecode } = request.query;
     const db = DbService.getDbServiceInstance();
     const result = db.dropCourse(coursecode, info_id);
     result.then((data) => response.json(data)).catch((err) => console.log(err));
@@ -92,19 +91,11 @@ app.post("/resetPassword", (request, response) => {
 });
 
 app.put("/editProfile", (request, response) => {
-    const { info_id, email} = request.body;
+    const { info_id, email } = request.body;
     const db = DbService.getDbServiceInstance();
     const result = db.editProfile(info_id, email);
     result.then((data) => response.json(data)).catch((err) => console.log(err));
 });
-
-app.post("/selectCourse", (request, response) => {
-    const { coursecode, info_id } = request.body;
-    const db = DbService.getDbServiceInstance();
-    const result = db.selectCourse(coursecode, info_id);
-    result.then((data) => response.json(data)).catch((err) => console.log(err));
-});
-
 
 app.get("/getAllUser", (request, response) => {
     const { info_id, username, password, usertype, department, email } = request.body;
@@ -132,6 +123,14 @@ app.get("/getCourses", (request, response) => {
     const { userType, searchItem } = request.query;
     const db = DbService.getDbServiceInstance();
     const result = db.getCourses(userType, searchItem);
+    result.then((data) => response.json(data)).catch((err) => console.log(err));
+
+});
+
+app.post("/selectCourse", (request, response) => {
+    const { info_id, coursecode } = request.query;
+    const db = DbService.getDbServiceInstance();
+    const result = db.selectCourse(info_id, coursecode);
     result.then((data) => response.json(data)).catch((err) => console.log(err));
 
 });

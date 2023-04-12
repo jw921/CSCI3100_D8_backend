@@ -90,7 +90,7 @@ class DbService {
     async dropCourse(coursecode, info_id) {
         try {
             let response = await new Promise((resolve, reject) => {
-                const query = "UPDATE record SET status = 'dropped' WHERE coursecode = ? AND info_id = ?";
+                const query = "DELETE FROM record WHERE coursecode = ? AND info_id = ?";
                 connection.query(query, [coursecode, info_id], (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result);
@@ -206,25 +206,6 @@ class DbService {
         }
     }
 
-    async selectCourse(coursecode, info_id) {
-        try {
-            const response = await new Promise((resolve, reject) => {
-                const query = "SELECT courses FROM users WHERE info_id = ?;";
-                connection.query(query, [info_id], (err, result) => {
-                    if (err) reject(new Error(err.message));
-                    resolve(result);
-                });
-            });
-            // add selected course to courses
-            // select students from courses where coursecode=coursecode
-            // add info_id to students
-            return { success: true, message: "success" };
-        } catch (error) {
-            console.log(error.message);
-            return { success: false, message: "error occur" };
-        }
-    }
-
     //sample code for retreveing data from students table
     async getUserInfo(info_id) {
         try {
@@ -246,32 +227,36 @@ class DbService {
 
     //Get all user info
     async getAllUser(info_id, username, password, usertype, department, email) {
-        const response = await new Promise((resolve, reject) => {
-            const query = "SELECT * FROM users;"
-            connection.query(query, (err, result) => {
-                if (err) reject(new Error(err.message));
-                resolve(result);
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM users;"
+                connection.query(query, (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result);
+                });
             });
-        });
-        return response;
-    } catch(error) {
-        console.log(error.message);
-        return { success: false, message: "error occur" };
+            return response;
+        } catch (error) {
+            console.log(error.message);
+            return { success: false, message: "error occur" };
+        }
     }
 
     // Delete selected user    
     async deleteUser(info_id) {
-        const response = await new Promise((resolve, reject) => {
-            const query = "DELETE FROM users WHERE info_id = ?;"
-            connection.query(query, [info_id], (err, result) => {
-                if (err) reject(new Error(err.message));
-                resolve(result);
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "DELETE FROM users WHERE info_id = ?;"
+                connection.query(query, [info_id], (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result);
+                });
             });
-        });
-        return response;
-    } catch(error) {
-        console.log(error.message);
-        return { success: false, message: "error occur" };
+            return response;
+        } catch (error) {
+            console.log(error.message);
+            return { success: false, message: "error occur" };
+        }
     }
 
     // Delete selected course    
@@ -292,19 +277,37 @@ class DbService {
     }
 
     async getCourses(userType, searchItem) {
-        const response = await new Promise((resolve, reject) => {
-            const query = "SELECT * FROM courses WHERE " + userType + " LIKE '%" + searchItem + "%';";
-            console.log(query);
-            connection.query(query, (err, result) => {
-                if (err) reject(new Error(err.message));
-                resolve(result);
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM courses WHERE " + userType + " LIKE '%" + searchItem + "%';";
+                connection.query(query, (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result);
+                });
             });
-        });
-        console.log(response);
-        return response;
-    } catch(error) {
-        console.log(error.message);
-        return { success: false, message: "error occur" };
+            console.log(response);
+            return response;
+        } catch (error) {
+            console.log(error.message);
+            return { success: false, message: "error occur" };
+        }
+    }
+
+    async selectCourse(info_id, coursecode) {
+        try {
+            console.log(coursecode);
+            const response = await new Promise((resolve, reject) => {
+                const query = "INSERT INTO record (info_id, coursecode, status) VALUES (?, ?, 'enrolled');";
+                connection.query(query, [info_id, coursecode], (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result);
+                });
+            });
+            return response;
+        } catch (error) {
+            console.log(error.message);
+            return { success: false, message: "error occur" };
+        }
     }
 }
 
