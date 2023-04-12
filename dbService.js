@@ -243,19 +243,21 @@ class DbService {
     }
 
     // Delete selected course    
-    async deleteCourse (coursecode){
-        const response = await new Promise((resolve, reject) => {
-            const query = "DELETE FROM courses WHERE coursecode = ?;"
-            connection.query(query, [coursecode], (err, result) => {
+    async deleteCourse(coursecode) {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "DELETE FROM courses WHERE coursecode = ?;"
+                connection.query(query, [coursecode], (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result);
                 });
             });
-                return response;
-            } catch (error) {
-                console.log(error.message);
-                return { success: false, message: "error occur" };
-            }
+            return response;
+        } catch (error) {
+            console.log(error.message);
+            return { success: false, message: "error occur" };
+        }
+    }
 }
 
 module.exports = DbService;
