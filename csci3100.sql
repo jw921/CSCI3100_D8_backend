@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2023 at 03:31 PM
+-- Generation Time: Apr 13, 2023 at 09:55 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.4.21
 
@@ -29,13 +29,13 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `courses` (
   `coursecode` varchar(32) NOT NULL,
-  `coursename` varchar(32) DEFAULT NULL,
-  `time_period` varchar(255) DEFAULT NULL,
-  `place` varchar(32) DEFAULT NULL,
-  `department` varchar(32) DEFAULT NULL,
-  `instructor` varchar(32) DEFAULT NULL,
-  `capacity` int(11) DEFAULT NULL,
-  `assessment_method` varchar(255) DEFAULT NULL
+  `coursename` varchar(32) NOT NULL,
+  `time_period` varchar(255) NOT NULL,
+  `place` varchar(32) NOT NULL,
+  `department` varchar(32) NOT NULL,
+  `instructor` varchar(32) NOT NULL,
+  `capacity` int(11) NOT NULL,
+  `assessment_method` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -43,25 +43,25 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`coursecode`, `coursename`, `time_period`, `place`, `department`, `instructor`, `capacity`, `assessment_method`) VALUES
+('BABA101', 'Introduction to Business', 'T 14:30-16:30', 'Room 307', 'Business', 'ShawLeung', 100, 'exam'),
+('BABA102', 'Advance Business', 'F 16:30-18:30', 'Room 102', 'Business', 'ShawLeung', 100, 'exam'),
 ('BIOL101', 'Biology I', 'F 16:00-19:00', 'Room 108', 'Biology', 'Emily Wang', 30, 'project'),
 ('CHEM101', 'Chemistry I', 'T 13:00-16:00', 'Room 105', 'Chemistry', 'Michael Brown', 25, 'project'),
+('CHLT101', 'Chinese Language', 'M 08:30-13:30', 'Room 101', 'Chinese', 'ChungChi', 200, 'project'),
+('CHLT102', 'Chinese Language Grammar', 'T 14:30-16:30', 'Room 102', 'Chinese', 'ChungChi', 100, 'project'),
 ('CS101', 'Introduction to Computer Science', 'F 09:00-12:00', 'Room 101', 'Computer Science', 'John Smith', 50, 'exam'),
 ('ECON101', 'Principles of Microeconomics', 'S 18:00-21:00', 'Room 110', 'Economics', 'Jane Doe', 30, 'project'),
 ('ENGL101', 'Composition I', 'S 11:00-14:00', 'Room 103', 'English', 'David Lee', 30, 'exam'),
 ('HIST101', 'World History I', 'W 14:00-17:00', 'Room 106', 'History', 'Maria Rodriguez', 35, 'project'),
-('MATH201', 'Art Calculus I', 'S 10:00-13:00', 'Room 102', 'Mathematics', 'Jane Doe', 40, 'project'),
-('PHYS101', 'Physics I', 'M 12:00-15:00', 'Room 104', 'Physics', 'Sarah Johnson', 20, 'exam'),
-('PSYC102', 'Introduction to Psychology', 'T 15:00-18:00', 'Room 107', 'Psychology', 'SirRunRun', 45, 'project'),
-('PSYC103', 'Psychology Theory', 'W 08:30-12:30', 'Room 100', 'Psychology', 'SirRunRun', 10, 'exam'),
-('PHYS100', 'Introduction to Physics', 'T 16:00-19:00', 'Room 207', 'Physics', 'Peter Kwan', 80, 'exam'),
-('PHYS102', 'Physics in Engineering', 'T 19:00-23:00', 'Room 207', 'Physics', 'Peter Kwan', 100, 'exam'),
-('CHLT101', 'Chinese Language', 'M 08:30-13:30', 'Room 101', 'Chinese', 'ChungChi', 200, 'project'),
-('CHLT102', 'Chinese Language Grammar', 'T 14:30-16:30', 'Room 102', 'Chinese', 'ChungChi', 100, 'project'),
-('BABA101', 'Introduction to Business', 'T 14:30-16:30', 'Room 307', 'Business', 'ShawLeung', 100, 'exam'),
-('BABA102', 'Advance Business', 'F 16:30-18:30', 'Room 102', 'Business', 'ShawLeung', 100, 'exam'),
+('HIST102', 'World History II', 'T 14:30-16:30', 'Room 102', 'Chinese', 'Maria Rodriguez', 100, 'exam'),
 ('IBBA103', 'International Business', 'T 14:30-16:30', 'Room 100', 'IBBA', 'LeeKeungKeung', 100, 'project'),
 ('IBBA104', 'Advance International Business', 'W 12:30-13:30', 'Room 102', 'IBBA', 'LeeKeungKeung', 100, 'exam'),
-('HIST102', 'World History II', 'T 14:30-16:30', 'Room 102', 'Chinese', 'Maria Rodriguez', 100, 'exam'),
+('MATH201', 'Art Calculus I', 'S 10:00-13:00', 'Room 102', 'Mathematics', 'Jane Doe', 40, 'project'),
+('PHYS100', 'Introduction to Physics', 'T 16:00-19:00', 'Room 207', 'Physics', 'Peter Kwan', 80, 'exam'),
+('PHYS101', 'Physics I', 'M 12:00-15:00', 'Room 104', 'Physics', 'Sarah Johnson', 20, 'exam'),
+('PHYS102', 'Physics in Engineering', 'T 19:00-23:00', 'Room 207', 'Physics', 'Peter Kwan', 100, 'exam'),
+('PSYC102', 'Introduction to Psychology', 'T 15:00-18:00', 'Room 107', 'Psychology', 'SirRunRun', 45, 'project'),
+('PSYC103', 'Psychology Theory', 'W 08:30-12:30', 'Room 100', 'Psychology', 'SirRunRun', 10, 'exam'),
 ('UGEA100', 'Chinese in Practice', 'T 14:30-16:30', 'Room 102', 'Chinese', 'ChungChi', 100, 'exam'),
 ('UGEB100', 'Engine in Practice', 'W 12:30-16:30', 'Room 102', 'Electronic Enginerring', 'CheungLiLi', 100, 'project');
 
@@ -135,12 +135,6 @@ ALTER TABLE `courses`
 --
 ALTER TABLE `record`
   ADD PRIMARY KEY (`info_id`,`coursecode`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`info_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
