@@ -90,7 +90,7 @@ app.post("/resetPassword", (request, response) => {
     result.then((data) => response.json(data)).catch((err) => console.log(err));
 });
 
-app.put("/editProfile", (request, response) => {
+app.post("/editProfile", (request, response) => {
     const { info_id, email } = request.body;
     const db = DbService.getDbServiceInstance();
     const result = db.editProfile(info_id, email);

@@ -200,7 +200,7 @@ class DbService {
         try {
             const response = await new Promise((resolve, reject) => {
                 const query = "UPDATE users SET email = ? WHERE info_id = ?;";
-                connection.query(query, [info_id, email], (err, result) => {
+                connection.query(query, [email, info_id], (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result);
                 });
