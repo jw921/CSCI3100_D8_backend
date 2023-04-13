@@ -83,13 +83,6 @@ app.post("/addUser", (request, response) => {
     result.then((data) => response.json(data)).catch((err) => console.log(err));
 });
 
-app.post("/resetPassword", (request, response) => {
-    const { info_id, username, password } = request.body;
-    const db = DbService.getDbServiceInstance();
-    const result = resetPassword(password, info_id, username);
-    result.then((data) => response.json(data)).catch((err) => console.log(err));
-});
-
 app.post("/editProfile", (request, response) => {
     const { info_id, email } = request.body;
     const db = DbService.getDbServiceInstance();
@@ -131,6 +124,13 @@ app.post("/selectCourse", (request, response) => {
     const { info_id, coursecode } = request.query;
     const db = DbService.getDbServiceInstance();
     const result = db.selectCourse(info_id, coursecode);
+    result.then((data) => response.json(data)).catch((err) => console.log(err));
+});
+
+app.post("/resetPassword", (request, response) => {
+    const { info_id, username, email, password } = request.body;
+    const db = DbService.getDbServiceInstance();
+    const result = db.resetPassword(info_id, username, email, password);
     result.then((data) => response.json(data)).catch((err) => console.log(err));
 });
 

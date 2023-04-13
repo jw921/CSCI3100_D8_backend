@@ -179,22 +179,6 @@ class DbService {
         }
     }
 
-    async resetPassword(password, info_id, username) {
-        try {
-            const response = await new Promise((resolve, reject) => {
-                const query = "UPDATE users SET password = ? WHERE info_id = ? AND username = ?;";
-                connection.query(query, [password, info_id, username], (err, result) => {
-                    if (err) reject(new Error(err.message));
-                    resolve(result);
-                });
-            });
-            if (response.affectRows === 0) return { success: false, message: "reset password failed" }
-            else return { success: true, message: "reset password success" };
-        } catch (error) {
-            console.log(error.message);
-            return { success: false, message: "error occur" };
-        }
-    }
 
     async editProfile(info_id, email) {
         try {
@@ -325,6 +309,25 @@ class DbService {
                 });
             });
             return { success: true };
+        } catch (error) {
+            console.log(error.message);
+            return { success: false, message: "error occur" };
+        }
+    }
+
+    async resetPassword(info_id, username, email, password) {
+        try {
+            console.log(info_id, username, email, password);
+
+            const response = await new Promise((resolve, reject) => {
+                const query = "UPDATE users SET password = ? WHERE info_id = ? AND username = ? AND email = ?;";
+                connection.query(query, [password, info_id, username, email], (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result);
+                });
+            });
+            if (response.affectedRows == 0) return { success: false, message: "reset password failed" };
+            else return { success: true, message: "reset password success" };
         } catch (error) {
             console.log(error.message);
             return { success: false, message: "error occur" };
