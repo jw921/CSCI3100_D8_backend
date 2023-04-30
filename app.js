@@ -70,9 +70,9 @@ app.get("/getCourseByFilter", (request, response) => {
 })
 
 app.post("/addCourse", (request, response) => {
-    const { coursecode, coursename, time_period, place, department, instructor, capacity, assessment_method } = request.body;
+    const { coursecode, coursename, weekday, start_time, end_time, place, department, instructor, capacity, assessment_method } = request.body;
     const db = DbService.getDbServiceInstance();
-    const result = db.addCourse(coursecode, coursename, time_period, place, department, instructor, capacity, assessment_method);
+    const result = db.addCourse(coursecode, coursename, weekday, start_time, end_time, place, department, instructor, capacity, assessment_method);
     result.then((data) => response.json(data)).catch((err) => console.log(err));
 });
 

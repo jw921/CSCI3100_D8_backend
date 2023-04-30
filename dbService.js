@@ -145,11 +145,11 @@ class DbService {
         }
     }
 
-    async addCourse(coursecode, coursename, time_period, place, department, instructor, capacity, assessment_method) {
+    async addCourse(coursecode, coursename, weekday, start_time, end_time, place, department, instructor, capacity, assessment_method) {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "INSERT INTO courses (coursecode, coursename, time_period, place, department, instructor, capacity, assessment_method) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-                connection.query(query, [coursecode, coursename, time_period, place, department, instructor, capacity, assessment_method], (err, result) => {
+                const query = "INSERT INTO courses (coursecode, coursename, weekday, start_time, end_time, place, department, instructor, capacity, assessment_method) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                connection.query(query, [coursecode, coursename, weekday, start_time, end_time, place, department, instructor, capacity, assessment_method], (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result);
                 });
@@ -157,7 +157,6 @@ class DbService {
             if (response.affectRows === 0) return { success: false, message: "add course failed" }
             else return { success: true, message: "add course success" };
         } catch (error) {
-            console.log(error.message);
             return { success: false, message: "error occur" };
         }
     }
