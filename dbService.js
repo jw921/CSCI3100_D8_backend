@@ -4,11 +4,11 @@ let instance = null;
 dotenv.config();
 
 const connection = mysql.createConnection({
-    host: process.env.HOST,
+    host: "localhost",
     user: 'root',
     password: '',
-    database: process.env.DATABASE,
-    port: process.env.DB_PORT,
+    database: 'csci3100',
+    port: 3306,
 });
 
 connection.connect((err) => {
@@ -145,11 +145,11 @@ class DbService {
         }
     }
 
-    async addCourse(coursecode, coursename, weekday, start_time, end_time, place, department, instructor, capacity, assessment_method) {
+    async addCourse(coursecode, coursename, weekday, starttime, endtime, place, department, instructor, capacity, assessment_method) {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "INSERT INTO courses (coursecode, coursename, weekday, start_time, end_time, place, department, instructor, capacity, assessment_method) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-                connection.query(query, [coursecode, coursename, weekday, start_time, end_time, place, department, instructor, capacity, assessment_method], (err, result) => {
+                const query = "INSERT INTO courses (coursecode, coursename, weekday, starttime, endtime, place, department, instructor, capacity, assessment_method) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                connection.query(query, [coursecode, coursename, weekday, starttime, endtime, place, department, instructor, capacity, assessment_method], (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result);
                 });

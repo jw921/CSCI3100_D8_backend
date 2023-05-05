@@ -7,7 +7,12 @@ dotenv.config();
 const DbService = require("./dbService");
 const { response, request } = require("express");
 
-app.use(cors());
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials: true,            //access-control-allow-credentials:true
+    optionSuccessStatus: 200
+}
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -70,9 +75,9 @@ app.get("/getCourseByFilter", (request, response) => {
 })
 
 app.post("/addCourse", (request, response) => {
-    const { coursecode, coursename, weekday, start_time, end_time, place, department, instructor, capacity, assessment_method } = request.body;
+    const { coursecode, coursename, weekday, starttime, endtime, place, department, instructor, capacity, assessment_method } = request.body;
     const db = DbService.getDbServiceInstance();
-    const result = db.addCourse(coursecode, coursename, weekday, start_time, end_time, place, department, instructor, capacity, assessment_method);
+    const result = db.addCourse(coursecode, coursename, weekday, starttime, endtime, place, department, instructor, capacity, assessment_method);
     result.then((data) => response.json(data)).catch((err) => console.log(err));
 });
 
