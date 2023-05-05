@@ -4,11 +4,11 @@ let instance = null;
 dotenv.config();
 
 const connection = mysql.createConnection({
-    host: "localhost",
-    user: 'root',
-    password: '',
-    database: 'csci3100',
-    port: 3306,
+    host: process.env.HOST,
+    user: 'csci3100_onetooltax',
+    password: 'recusis',
+    database: process.env.DATABASE,
+    port: process.env.DB_PORT,
 });
 
 connection.connect((err) => {
